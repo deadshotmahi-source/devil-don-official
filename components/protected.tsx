@@ -1,38 +1,53 @@
 "use client";
 
-import { useRouter } from "next/navigation";
 import { useEffect } from "react";
-import { Loader2 } from "lucide-react";
-import { useAuth } from "@/components/auth-provider";
+import { useRouter } from "next/navigation";
 
-export function Protected({ children, adminOnly = false }: { children: React.ReactNode; adminOnly?: boolean }) {
+export function Protected({
+  children,
+  adminOnly = false,
+}: {
+  children: React.ReactNode;
+  adminOnly?: boolean;
+}) {
   const router = useRouter();
-  const { appUser, loading } = useAuth();
+
+  // Temporary demo user
+  const appUser = {
+    username: "Guest User",
+    role: "user",
+  } as any;
+
+  const loading = false;
 
   useEffect(() => {
     if (loading) return;
-    if (!appUser) router.replace("/login");
-    if (adminOnly && appUser?.role !== "admin") router.replace("/dashboard");
-  }, [adminOnly, appUser, loading, router]);
 
-  if (loading || !appUser || (adminOnly && appUser.role !== "admin")) {
-    return (
-      <main className="grid min-h-[70vh] place-items-center">
-        <div className="glass neon-ring flex items-center gap-3 rounded-lg px-6 py-5 text-sm font-semibold text-ocean">
-          <Loader2 className="animate-spin" size={20} /> Loading premium access
-        </div>
-      </main>
-    );
-  }
+    // If no user, redirect login
+    if (!appUser) {
+      router.push("/login");
+      return;
+    }
 
-  if (appUser.status === "banned") {
+    // Admin route protection
+    if (
+      adminOnly &&
+      appUser?.role !== "admin"
+    ) {
+      router.push("/dashboard");
+    }
+  }, [
+    appUser,
+    loading,
+    adminOnly,
+    router,
+  ]);
+
+  if (loading) {
     return (
-      <main className="section">
-        <div className="glass rounded-lg p-8 text-center">
-          <h1 className="text-3xl font-black">Account banned</h1>
-          <p className="mt-3 text-slate-600">Contact support if you believe this was a mistake.</p>
-        </div>
-      </main>
+      <div className="flex min-h-screen items-center justify-center">
+        Loading...
+      </div>
     );
   }
 
