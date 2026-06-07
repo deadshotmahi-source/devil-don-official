@@ -33,9 +33,11 @@ function BuyKeyContent() {
 
   // Temporary demo user for deployment
   const appUser = {
-    uid: "demo-user",
-    username: "Guest User",
-  };
+  uid: "demo-user",
+  username: "Guest User",
+  email: "guest@example.com",
+  role: "user",
+} as any;
 
   async function submit(event: FormEvent) {
     event.preventDefault();
