@@ -10,7 +10,6 @@ import {
   Shield,
   Sparkles,
 } from "lucide-react";
-import { useAuth } from "@/components/auth-provider";
 import { cn } from "@/lib/utils";
 
 const navItems = [
@@ -23,9 +22,12 @@ export function Navbar() {
   const pathname = usePathname();
   const router = useRouter();
 
-  const { logout } = useAuth();
+  // Temporary logout function
+  const logout = () => {
+    router.push("/login");
+  };
 
-  // Temporary user for deploy
+  // Temporary demo user for deploy
   const appUser = {
     username: "Guest User",
     role: "user",
@@ -34,10 +36,7 @@ export function Navbar() {
   return (
     <header className="sticky top-0 z-50 border-b border-blue-100/70 bg-white/75 backdrop-blur-2xl">
       <nav className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 sm:px-6 lg:px-8">
-        <Link
-          href="/"
-          className="flex items-center gap-3"
-        >
+        <Link href="/" className="flex items-center gap-3">
           <span className="grid h-10 w-10 place-items-center rounded-lg bg-ocean text-white shadow-glow">
             <Sparkles size={20} />
           </span>
@@ -81,9 +80,7 @@ export function Navbar() {
             <>
               <button
                 className="btn-secondary hidden px-3 py-2 sm:inline-flex"
-                onClick={() =>
-                  router.push("/dashboard")
-                }
+                onClick={() => router.push("/dashboard")}
               >
                 <LayoutDashboard size={16} />
                 Panel
