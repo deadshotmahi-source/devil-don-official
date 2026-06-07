@@ -20,7 +20,12 @@ export default function DashboardPage() {
 }
 
 function DashboardContent() {
-  const { appUser } = useAuth();
+  const appUser = {
+  uid: "demo-user",
+  username: "Guest User",
+  email: "guest@example.com",
+  role: "user",
+} as any;
   const [keyCode, setKeyCode] = useState("");
   const [history, setHistory] = useState<PaymentRequest[]>([]);
   const [keys, setKeys] = useState<AccessKey[]>([]);
