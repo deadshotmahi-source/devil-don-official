@@ -24,7 +24,7 @@ function BuyKeyContent() {
     const plan = searchParams.get("plan") as PlanName | null;
     return plan && plans.includes(plan) ? plan : "7 Days Plan";
   }, [searchParams]);
-  const { appUser } = useAuth();
+  const { user } = useAuth();
   const [plan, setPlan] = useState<PlanName>(initialPlan);
   const [transactionId, setTransactionId] = useState("");
   const [screenshot, setScreenshot] = useState<File | null>(null);
@@ -33,7 +33,7 @@ function BuyKeyContent() {
 
   async function submit(event: FormEvent) {
     event.preventDefault();
-    if (!appUser || !screenshot) return setMessage("Upload a payment screenshot.");
+    if (!user || !screenshot) return setMessage("Upload a payment screenshot.");
     setBusy(true);
     setMessage("");
     try {
