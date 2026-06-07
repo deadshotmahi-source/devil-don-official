@@ -1,0 +1,65 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: light;
+  --bg: #f7fbff;
+  --ink: #06142e;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+  margin: 0;
+  background:
+    radial-gradient(circle at 15% 0%, rgba(22, 163, 255, .18), transparent 30%),
+    radial-gradient(circle at 85% 10%, rgba(7, 91, 255, .16), transparent 28%),
+    linear-gradient(180deg, #ffffff 0%, var(--bg) 46%, #ffffff 100%);
+  color: var(--ink);
+}
+
+::selection {
+  background: rgba(7, 91, 255, .18);
+}
+
+@layer components {
+  .premium-shell {
+    @apply min-h-screen overflow-x-hidden text-ink;
+  }
+
+  .glass {
+    @apply border border-white/70 bg-white/70 shadow-panel backdrop-blur-2xl;
+  }
+
+  .neon-ring {
+    @apply ring-1 ring-ocean/10 transition duration-300 hover:shadow-glow hover:ring-ocean/25;
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg bg-ocean px-5 py-3 text-sm font-semibold text-white shadow-glow transition hover:-translate-y-0.5 hover:bg-blue-700 active:translate-y-0;
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg border border-ocean/20 bg-white/80 px-5 py-3 text-sm font-semibold text-ocean transition hover:-translate-y-0.5 hover:border-ocean/40 hover:bg-white active:translate-y-0;
+  }
+
+  .input {
+    @apply w-full rounded-lg border border-blue-100 bg-white/85 px-4 py-3 text-sm text-ink outline-none transition placeholder:text-slate-400 focus:border-ocean focus:ring-4 focus:ring-ocean/10;
+  }
+
+  .label {
+    @apply text-xs font-bold uppercase tracking-[.16em] text-slate-500;
+  }
+
+  .section {
+    @apply mx-auto w-full max-w-7xl px-4 py-16 sm:px-6 lg:px-8;
+  }
+}
