@@ -1,18 +1,29 @@
 "use client";
 
+import { Suspense, FormEvent, useMemo, useState } from "react";
 import { useSearchParams } from "next/navigation";
-import { FormEvent, useMemo, useState } from "react";
-import { CheckCircle2, Loader2, QrCode, UploadCloud } from "lucide-react";
+import {
+  CheckCircle2,
+  Loader2,
+  QrCode,
+  UploadCloud,
+} from "lucide-react";
 import { Protected } from "@/components/protected";
 import { createPaymentRequest } from "@/lib/firebase-actions";
 import type { PlanName } from "@/lib/types";
 
-const plans: PlanName[] = ["7 Days Plan", "30 Days Plan", "VIP Plan"];
+const plans: PlanName[] = [
+  "7 Days Plan",
+  "30 Days Plan",
+  "VIP Plan",
+];
 
 export default function BuyKeyPage() {
   return (
     <Protected>
-      <BuyKeyContent />
+      <Suspense fallback={<div>Loading...</div>}>
+        <BuyKeyContent />
+      </Suspense>
     </Protected>
   );
 }
@@ -22,28 +33,37 @@ function BuyKeyContent() {
 
   const initialPlan = useMemo(() => {
     const plan = searchParams.get("plan") as PlanName | null;
-    return plan && plans.includes(plan) ? plan : "7 Days Plan";
+    return plan && plans.includes(plan)
+      ? plan
+      : "7 Days Plan";
   }, [searchParams]);
 
-  const [plan, setPlan] = useState<PlanName>(initialPlan);
-  const [transactionId, setTransactionId] = useState("");
-  const [screenshot, setScreenshot] = useState<File | null>(null);
+  const [plan, setPlan] =
+    useState<PlanName>(initialPlan);
+  const [transactionId, setTransactionId] =
+    useState("");
+  const [screenshot, setScreenshot] =
+    useState<File | null>(null);
   const [message, setMessage] = useState("");
   const [busy, setBusy] = useState(false);
 
   // Temporary demo user for deployment
   const appUser = {
-  uid: "demo-user",
-  username: "Guest User",
-  email: "guest@example.com",
-  role: "user",
-} as any;
+    uid: "demo-user",
+    username: "Guest User",
+    email: "guest@example.com",
+    role: "user",
+  } as any;
 
-  async function submit(event: FormEvent) {
+  async function submit(
+    event: FormEvent
+  ) {
     event.preventDefault();
 
     if (!screenshot) {
-      return setMessage("Upload a payment screenshot.");
+      return setMessage(
+        "Upload a payment screenshot."
+      );
     }
 
     setBusy(true);
@@ -77,7 +97,10 @@ function BuyKeyContent() {
   return (
     <main className="section">
       <div className="mb-8">
-        <p className="label">Manual QR Payment</p>
+        <p className="label">
+          Manual QR Payment
+        </p>
+
         <h1 className="mt-3 text-4xl font-black">
           Buy subscription key
         </h1>
@@ -99,14 +122,16 @@ function BuyKeyContent() {
                 <h2 className="text-xl font-black">
                   {item}
                 </h2>
+
                 {plan === item ? (
                   <CheckCircle2 className="text-ocean" />
                 ) : null}
               </div>
 
               <p className="mt-2 text-sm text-slate-600">
-                Secure APK access, dashboard status,
-                and key history.
+                Secure APK access,
+                dashboard status, and
+                key history.
               </p>
             </button>
           ))}
@@ -119,7 +144,9 @@ function BuyKeyContent() {
             </div>
 
             <p className="mt-4 text-center text-sm font-semibold text-slate-600">
-              Replace this QR block with your production payment QR asset.
+              Replace this QR block
+              with your production
+              payment QR asset.
             </p>
           </div>
         </div>
@@ -144,7 +171,9 @@ function BuyKeyContent() {
 
               <input
                 className="input mt-2"
-                value={appUser.username}
+                value={
+                  appUser.username
+                }
                 readOnly
               />
             </div>
@@ -158,11 +187,16 @@ function BuyKeyContent() {
                 className="input mt-2"
                 value={plan}
                 onChange={(e) =>
-                  setPlan(e.target.value as PlanName)
+                  setPlan(
+                    e.target
+                      .value as PlanName
+                  )
                 }
               >
                 {plans.map((item) => (
-                  <option key={item}>
+                  <option
+                    key={item}
+                  >
                     {item}
                   </option>
                 ))}
@@ -176,9 +210,13 @@ function BuyKeyContent() {
 
               <input
                 className="input mt-2"
-                value={transactionId}
+                value={
+                  transactionId
+                }
                 onChange={(e) =>
-                  setTransactionId(e.target.value)
+                  setTransactionId(
+                    e.target.value
+                  )
                 }
                 required
               />
@@ -202,7 +240,9 @@ function BuyKeyContent() {
                 accept="image/*"
                 onChange={(e) =>
                   setScreenshot(
-                    e.target.files?.[0] || null
+                    e.target
+                      .files?.[0] ||
+                      null
                   )
                 }
                 required
