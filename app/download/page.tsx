@@ -17,7 +17,13 @@ export default function DownloadPage() {
 }
 
 function DownloadContent() {
-  const { appUser } = useAuth();
+  const appUser = {
+  uid: "demo-user",
+  username: "Guest User",
+  email: "guest@example.com",
+  role: "user",
+  keyExpiry: new Date().toISOString(),
+} as any;
   const [apks, setApks] = useState<ApkFile[]>([]);
   const active = isFuture(appUser?.keyExpiry?.toDate?.() || null);
 
