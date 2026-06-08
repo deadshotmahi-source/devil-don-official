@@ -71,13 +71,7 @@ export default function AdminPage() {
     loadPayments();
   }, []);
 
-  if (loading) {
-    return (
-      <div className="p-10 text-center">
-        Loading...
-      </div>
-    );
-  }
+  
 
   return (
     <main className="max-w-6xl mx-auto p-6">
