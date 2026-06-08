@@ -32,13 +32,13 @@ export default function HomePage() {
             className="max-w-3xl"
           >
             <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-blue-100 bg-white/80 px-4 py-2 text-xs font-bold uppercase tracking-[.18em] text-ocean shadow-sm">
-              <Sparkles size={15} /> Premium Blue Access System
+              <Sparkles size={15} /> Premium APK Access
             </div>
             <h1 className="text-5xl font-black leading-[1.02] tracking-normal text-ink sm:text-6xl lg:text-7xl">
               DEVIL DON OFFICIAL
             </h1>
             <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-600">
-              Register, buy keys by manual QR payment, activate subscriptions, download APK releases, and manage everything through a polished premium dashboard.
+              Premium access with secure activation, fast approval, and smooth APK delivery.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Link href="/buy-key" className="btn-primary">
